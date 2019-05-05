@@ -10,15 +10,16 @@ cache:
     - node_modules
 install:
   - npm install
-  - npm i -g react-deploy-cli
+  - npm i -g travis-ci-cloudfront-invalidation
   - npm run build:production
-before_script:
-  - export RELEASE_HEAD=$(git rev-parse --short HEAD | cut -c1-7)  
-  - export RELEASE_HEAD_LONG=$(git rev-parse HEAD)  
-  - export CI=false
 deploy:
+  provider: s3
+  access_key_id: $ACCESS_KEY
+  secret_access_key: $SECRET_ACCESS_KEY
+  bucket: $BUCKET_NAME
+  local_dir: build
   skip_cleanup: true
-  provider: script
-  script: react-deploy deploy $TRAVIS_BRANCH && react-deploy list $TRAVIS_BRANCH && react-deploy activate $RELEASE_HEAD $TRAVIS_BRANCH
   on:
     branch: ["master"]
+after_deploy:
+  - travis-ci-cloudfront-invalidation -a $ACCESS_KEY -s $SECRET_ACCESS_KEY -c $CF_ID -i '/*' -b $TRAVIS_BRANCH -p $TRAVIS_PULL_REQUEST
