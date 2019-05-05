@@ -19,7 +19,7 @@
     "build": "react-app-env --env-file=${BUILD_ENV}.env build",
     "build:homologation": "BUILD_ENV=homologation npm run build",
     "build:production": "BUILD_ENV=production npm run build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test --env=jsdom --passWithNoTests",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
