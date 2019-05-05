@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types'; // eslint-disable-line
 import styled from 'styled-components';
+import Header from './Header';
 
 const Container = styled.div`
   text-align: center;
@@ -8,9 +9,9 @@ const Container = styled.div`
 
 const Home = () => {
   return (
-    <Container>
-      <p>Vakinha Dashboard</p>
-    </Container>
+    <>
+      <Header title="Dashboard" />
+    </>
   );
 };
 
